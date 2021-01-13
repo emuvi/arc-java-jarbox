@@ -7,7 +7,7 @@
   <version>0.1.0</version>
 
   <name>JarBox</name>
-  <url>https://www.github.com/tonvieira/jarbox</url>
+  <url>https://github.com/emuvs/jarbox</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
