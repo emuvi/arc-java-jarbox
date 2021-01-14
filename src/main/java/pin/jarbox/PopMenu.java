@@ -304,9 +304,9 @@ public class PopMenu {
   public PopMenu set(String origin, String title, Character mnemonic, Icon icon,
                      ActionListener action) {
     String name = WzdString.sum(origin, ".", title);
-    JComponent elemento = WzdDesk.getItem(jpmMenu, name);
-    if (elemento instanceof JMenu) {
-      JMenu elem = (JMenu) elemento;
+    JComponent element = WzdDesk.getItem(jpmMenu, name);
+    if (element instanceof JMenu) {
+      JMenu elem = (JMenu) element;
       if (mnemonic != null) {
         elem.setMnemonic(mnemonic);
         elem.setText(title + "   [ " + mnemonic + " ]");
@@ -320,8 +320,8 @@ public class PopMenu {
         }
         elem.addActionListener(action);
       }
-    } else if (elemento instanceof JMenuItem) {
-      JMenuItem elem = (JMenuItem) elemento;
+    } else if (element instanceof JMenuItem) {
+      JMenuItem elem = (JMenuItem) element;
       if (mnemonic != null) {
         elem.setMnemonic(mnemonic);
         elem.setText(title + "   [ " + mnemonic + " ]");
@@ -339,34 +339,34 @@ public class PopMenu {
     return this;
   }
 
-  public PopMenu limpa() {
+  public PopMenu clear() {
     jpmMenu.removeAll();
     return this;
   }
 
-  public PopMenu limpa(String origin) {
-    JComponent elemento = WzdDesk.getItem(jpmMenu, origin);
-    if (elemento instanceof JMenu) {
-      ((JMenu) elemento).removeAll();
-    } else if (elemento instanceof JMenuItem) {
-      ((JMenuItem) elemento).removeAll();
+  public PopMenu clear(String origin) {
+    JComponent element = WzdDesk.getItem(jpmMenu, origin);
+    if (element instanceof JMenu) {
+      ((JMenu) element).removeAll();
+    } else if (element instanceof JMenuItem) {
+      ((JMenuItem) element).removeAll();
     }
     return this;
   }
 
-  public void mostra(JComponent onComponent) {
-    mostra(onComponent, true);
+  public void show(JComponent onComponent) {
+    show(onComponent, true);
   }
 
-  public void mostra(JComponent onComponent, Boolean onBottom) {
+  public void show(JComponent onComponent, Boolean onBottom) {
     if (onBottom) {
-      mostra(onComponent, 0, onComponent.getHeight());
+      show(onComponent, 0, onComponent.getHeight());
     } else {
-      mostra(onComponent, 0, 0);
+      show(onComponent, 0, 0);
     }
   }
 
-  public void mostra(JComponent onComponent, Integer naPosX, Integer naPosY) {
+  public void show(JComponent onComponent, Integer naPosX, Integer naPosY) {
     if (naPosX == null) {
       naPosX = 0;
     }
@@ -392,46 +392,46 @@ public class PopMenu {
     return setup(onComponent, onBottom, withButton, false);
   }
 
-  public PopMenu setup(JComponent onComponent, Boolean onBottom, Boolean garantePop) {
-    return setup(onComponent, onBottom, MouseEvent.BUTTON3, garantePop);
+  public PopMenu setup(JComponent onComponent, Boolean onBottom, Boolean surePopup) {
+    return setup(onComponent, onBottom, MouseEvent.BUTTON3, surePopup);
   }
 
-  public PopMenu setup(JComponent onComponent, Boolean onBottom, Integer withButton, Boolean garantePop) {
+  public PopMenu setup(JComponent onComponent, Boolean onBottom, Integer withButton, Boolean surePopup) {
     if (onComponent == null) {
       return this;
     }
-    if (onComponent instanceof JButton && !garantePop) {
+    if (onComponent instanceof JButton && !surePopup) {
       ((JButton) onComponent).addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            mostra(onComponent, 0, onComponent.getHeight());
+            show(onComponent, 0, onComponent.getHeight());
           }
         });
     } else {
-      EvtPopMenu evtContexto = new EvtPopMenu(this, withButton, onBottom);
-      onComponent.addMouseListener(evtContexto);
-      setup(onComponent.getComponents(), evtContexto);
+      EvtPopMenu evtContext = new EvtPopMenu(this, withButton, onBottom);
+      onComponent.addMouseListener(evtContext);
+      setup(onComponent.getComponents(), evtContext);
     }
     return this;
   }
 
-  private void setup(Component[] nosComponentes, EvtPopMenu oEvento) {
-    if (nosComponentes == null) {
+  private void setup(Component[] inComponents, EvtPopMenu event) {
+    if (inComponents == null) {
       return;
     }
-    for (Component componente : nosComponentes) {
-      boolean jaTem = false;
-      for (MouseListener evento : componente.getMouseListeners()) {
-        if (evento instanceof EvtPopMenu) {
-          jaTem = true;
+    for (Component component : inComponents) {
+      boolean hasAlready = false;
+      for (MouseListener evt : component.getMouseListeners()) {
+        if (evt instanceof EvtPopMenu) {
+          hasAlready = true;
           break;
         }
       }
-      if (!jaTem) {
-        componente.addMouseListener(oEvento);
+      if (!hasAlready) {
+        component.addMouseListener(event);
       }
-      if (componente instanceof JComponent) {
-        setup(((JComponent) componente).getComponents(), oEvento);
+      if (component instanceof JComponent) {
+        setup(((JComponent) component).getComponents(), event);
       }
     }
   }
@@ -466,9 +466,9 @@ public class PopMenu {
       lastClick = e.getPoint();
       if (e.getButton() == button) {
         if (bottom) {
-          menu.mostra((JComponent) e.getComponent());
+          menu.show((JComponent) e.getComponent());
         } else {
-          menu.mostra((JComponent) e.getComponent(), e.getX(), e.getY());
+          menu.show((JComponent) e.getComponent(), e.getX(), e.getY());
         }
       }
     }
