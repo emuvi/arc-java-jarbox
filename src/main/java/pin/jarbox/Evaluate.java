@@ -127,8 +127,8 @@ public class Evaluate {
   private void processAssign() throws Exception {
     Object param1 = stack.pollFirst();
     Object param2 = stack.pollFirst();
-    if (param1 instanceof String atName) {
-      variables.set(atName, param2);
+    if (param1 instanceof String) {
+      variables.set((String) param1, param2);
     } else {
       throw new Exception("You must define the variable name for assign.");
     }
@@ -136,8 +136,8 @@ public class Evaluate {
 
   private void processNot() throws Exception {
     Object param = stack.pollFirst();
-    if (param instanceof Boolean paramBool) {
-      stack.addFirst(!paramBool);
+    if (param instanceof Boolean) {
+      stack.addFirst(!((Boolean) param));
     } else {
       throw new Exception("Can only process 'not' operations over booleans.");
     }
@@ -182,9 +182,9 @@ public class Evaluate {
   private void processAnd() throws Exception {
     Object param1 = stack.pollFirst();
     Object param2 = stack.pollFirst();
-    if (param1 instanceof Boolean param1Bool) {
-      if (param2 instanceof Boolean param2Bool) {
-        stack.addFirst(param1Bool && param2Bool);
+    if (param1 instanceof Boolean) {
+      if (param2 instanceof Boolean) {
+        stack.addFirst(((Boolean) param1) && ((Boolean) param2));
       } else {
         throw new Exception("Can only process 'and' operations over booleans.");
       }
@@ -196,9 +196,9 @@ public class Evaluate {
   private void processOr() throws Exception {
     Object param1 = stack.pollFirst();
     Object param2 = stack.pollFirst();
-    if (param1 instanceof Boolean param1Bool) {
-      if (param2 instanceof Boolean param2Bool) {
-        stack.addFirst(param1Bool || param2Bool);
+    if (param1 instanceof Boolean) {
+      if (param2 instanceof Boolean) {
+        stack.addFirst(((Boolean) param1) || ((Boolean) param2));
       } else {
         throw new Exception("Can only process 'or' operations over booleans.");
       }
@@ -222,8 +222,8 @@ public class Evaluate {
 
   private void processPlusPlus() throws Exception {
     Object param1 = stack.pollFirst();
-    if (param1 instanceof String atName) {
-      variables.set(atName, makePlus(variables.get(atName), 1));
+    if (param1 instanceof String) {
+      variables.set((String) param1, makePlus(variables.get((String) param1), 1));
     } else {
       throw new Exception(
           "You must define the variable name for make a plus plus.");
@@ -233,8 +233,8 @@ public class Evaluate {
   private void processPlusAssign() throws Exception {
     Object param1 = stack.pollFirst();
     Object param2 = stack.pollFirst();
-    if (param1 instanceof String atName) {
-      variables.set(atName, makePlus(variables.get(atName), param2));
+    if (param1 instanceof String) {
+      variables.set((String) param1, makePlus(variables.get((String) param1), param2));
     } else {
       throw new Exception(
           "You must define the variable name for make a plus assign.");
@@ -249,8 +249,8 @@ public class Evaluate {
 
   private void processMinusMinus() throws Exception {
     Object param1 = stack.pollFirst();
-    if (param1 instanceof String atName) {
-      variables.set(atName, makeMinus(variables.get(atName), 1));
+    if (param1 instanceof String) {
+      variables.set((String) param1, makeMinus(variables.get((String) param1), 1));
     } else {
       throw new Exception(
           "You must define the variable name for make a minus minus.");
@@ -260,8 +260,8 @@ public class Evaluate {
   private void processMinusAssign() throws Exception {
     Object param1 = stack.pollFirst();
     Object param2 = stack.pollFirst();
-    if (param1 instanceof String atName) {
-      variables.set(atName, makeMinus(variables.get(atName), param2));
+    if (param1 instanceof String) {
+      variables.set((String) param1, makeMinus(variables.get((String) param1), param2));
     } else {
       throw new Exception(
           "You must define the variable name for make a minus assign.");
@@ -276,9 +276,9 @@ public class Evaluate {
 
   private void processMultiplySelf() throws Exception {
     Object param1 = stack.pollFirst();
-    if (param1 instanceof String atName) {
-      Object value = variables.get(atName);
-      variables.set(atName, makeMultiply(value, value));
+    if (param1 instanceof String) {
+      Object value = variables.get((String) param1);
+      variables.set((String) param1, makeMultiply(value, value));
     } else {
       throw new Exception(
           "You must define the variable name for make a multiply self.");
@@ -288,8 +288,8 @@ public class Evaluate {
   private void processMultiplyAssign() throws Exception {
     Object param1 = stack.pollFirst();
     Object param2 = stack.pollFirst();
-    if (param1 instanceof String atName) {
-      variables.set(atName, makeMultiply(variables.get(atName), param2));
+    if (param1 instanceof String) {
+      variables.set((String) param1, makeMultiply(variables.get((String) param1), param2));
     } else {
       throw new Exception(
           "You must define the variable name for make a multiply assign.");
@@ -305,8 +305,8 @@ public class Evaluate {
   private void processDivideAssign() throws Exception {
     Object param1 = stack.pollFirst();
     Object param2 = stack.pollFirst();
-    if (param1 instanceof String atName) {
-      variables.set(atName, makeDivide(variables.get(atName), param2));
+    if (param1 instanceof String) {
+      variables.set((String) param1, makeDivide(variables.get((String) param1), param2));
     } else {
       throw new Exception(
           "You must define the variable name for make a divide assign.");
@@ -322,8 +322,8 @@ public class Evaluate {
   private void processRestAssign() throws Exception {
     Object param1 = stack.pollFirst();
     Object param2 = stack.pollFirst();
-    if (param1 instanceof String atName) {
-      variables.set(atName, makeRest(variables.get(atName), param2));
+    if (param1 instanceof String) {
+      variables.set((String) param1, makeRest(variables.get((String) param1), param2));
     } else {
       throw new Exception(
           "You must define the variable name for make a rest assign.");
@@ -335,15 +335,15 @@ public class Evaluate {
   }
 
   private Boolean checkBigger(Object param1, Object param2) throws Exception {
-    if (param1 instanceof String param1String) {
-      if (param2 instanceof String param2String) {
-        return param1String.compareTo(param2String) > 0;
+    if (param1 instanceof String) {
+      if (param2 instanceof String) {
+        return ((String) param1).compareTo(((String) param2)) > 0;
       } else {
         throw new Exception("Can not check bigger on different types.");
       }
-    } else if (param1 instanceof Number param1Number) {
-      if (param2 instanceof Number param2Number) {
-        return param1Number.doubleValue() > param2Number.doubleValue();
+    } else if (param1 instanceof Number) {
+      if (param2 instanceof Number) {
+        return ((Number) param1).doubleValue() > ((Number) param2).doubleValue();
       } else {
         throw new Exception("Can not check bigger on different types.");
       }
@@ -353,15 +353,15 @@ public class Evaluate {
   }
 
   private Boolean checkSmaller(Object param1, Object param2) throws Exception {
-    if (param1 instanceof String param1String) {
-      if (param2 instanceof String param2String) {
-        return param1String.compareTo(param2String) < 0;
+    if (param1 instanceof String) {
+      if (param2 instanceof String) {
+        return ((String) param1).compareTo(((String) param2)) < 0;
       } else {
         throw new Exception("Can not check smaller on different types.");
       }
-    } else if (param1 instanceof Number param1Number) {
-      if (param2 instanceof Number param2Number) {
-        return param1Number.doubleValue() < param2Number.doubleValue();
+    } else if (param1 instanceof Number) {
+      if (param2 instanceof Number) {
+        return ((Number) param1).doubleValue() < ((Number) param2).doubleValue();
       } else {
         throw new Exception("Can not check smaller on different types.");
       }
@@ -372,8 +372,8 @@ public class Evaluate {
 
   private Object checkTernary(Object param1, Object param2, Object param3)
       throws Exception {
-      if (param1 instanceof Boolean param1Boolean) {
-        if (param1Boolean) {
+      if (param1 instanceof Boolean) {
+        if ((Boolean) param1) {
           return param2;
         } else {
           return param3;
@@ -388,13 +388,13 @@ public class Evaluate {
     if (param1 instanceof String || param2 instanceof String) {
       return String.valueOf(param1) + String.valueOf(param2);
     } else {
-      if (param1 instanceof Number param1Number) {
-        if (param2 instanceof Number param2Number) {
-          if (param1Number instanceof Double
-              || param2Number instanceof Double) {
-            return param1Number.doubleValue() + param2Number.doubleValue();
+      if (param1 instanceof Number) {
+        if (param2 instanceof Number) {
+          if (param1 instanceof Double
+              || param2 instanceof Double) {
+            return ((Number) param1).doubleValue() + ((Number) param2).doubleValue();
           } else {
-            return param1Number.intValue() + param2Number.intValue();
+            return ((Number) param1).intValue() + ((Number) param2).intValue();
           }
         } else {
           throw new Exception(
@@ -408,12 +408,12 @@ public class Evaluate {
   }
 
   private Object makeMinus(Object param1, Object param2) throws Exception {
-    if (param1 instanceof Number param1Number) {
-      if (param2 instanceof Number param2Number) {
-        if (param1Number instanceof Double || param2Number instanceof Double) {
-          return param1Number.doubleValue() - param2Number.doubleValue();
+    if (param1 instanceof Number) {
+      if (param2 instanceof Number) {
+        if (param1 instanceof Double || param2 instanceof Double) {
+          return ((Number) param1).doubleValue() - ((Number) param2).doubleValue();
         } else {
-          return param1Number.intValue() - param2Number.intValue();
+          return ((Number) param1).intValue() - ((Number) param2).intValue();
         }
       } else {
         throw new Exception(
@@ -426,12 +426,12 @@ public class Evaluate {
   }
 
   private Object makeMultiply(Object param1, Object param2) throws Exception {
-    if (param1 instanceof Number param1Number) {
-      if (param2 instanceof Number param2Number) {
-        if (param1Number instanceof Double || param2Number instanceof Double) {
-          return param1Number.doubleValue() * param2Number.doubleValue();
+    if (param1 instanceof Number) {
+      if (param2 instanceof Number) {
+        if (param1 instanceof Double || param2 instanceof Double) {
+          return ((Number) param1).doubleValue() * ((Number) param2).doubleValue();
         } else {
-          return param1Number.intValue() * param2Number.intValue();
+          return ((Number) param1).intValue() * ((Number) param2).intValue();
         }
       } else {
         throw new Exception(
@@ -444,12 +444,12 @@ public class Evaluate {
   }
 
   private Object makeDivide(Object param1, Object param2) throws Exception {
-    if (param1 instanceof Number param1Number) {
-      if (param2 instanceof Number param2Number) {
-        if (param1Number instanceof Double || param2Number instanceof Double) {
-          return param1Number.doubleValue() / param2Number.doubleValue();
+    if (param1 instanceof Number) {
+      if (param2 instanceof Number) {
+        if (param1 instanceof Double || param2 instanceof Double) {
+          return ((Number) param1).doubleValue() / ((Number) param2).doubleValue();
         } else {
-          return param1Number.intValue() / param2Number.intValue();
+          return ((Number) param1).intValue() / ((Number) param2).intValue();
         }
       } else {
         throw new Exception(
@@ -462,12 +462,12 @@ public class Evaluate {
   }
 
   private Object makeRest(Object param1, Object param2) throws Exception {
-    if (param1 instanceof Number param1Number) {
-      if (param2 instanceof Number param2Number) {
-        if (param1Number instanceof Double || param2Number instanceof Double) {
-          return param1Number.doubleValue() % param2Number.doubleValue();
+    if (param1 instanceof Number) {
+      if (param2 instanceof Number) {
+        if (param1 instanceof Double || param2 instanceof Double) {
+          return ((Number) param1).doubleValue() % ((Number) param2).doubleValue();
         } else {
-          return param1Number.intValue() % param2Number.intValue();
+          return ((Number) param1).intValue() % ((Number) param2).intValue();
         }
       } else {
         throw new Exception(

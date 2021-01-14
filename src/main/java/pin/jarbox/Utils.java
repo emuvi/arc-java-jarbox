@@ -89,10 +89,10 @@ public class Utils {
   }
 
   public static void startMain(Helm helm) {
-    if (helm.window instanceof JFrame jFrame) {
-      title = jFrame.getTitle();
-    } else if (helm.window instanceof JDialog jDialog) {
-      title = jDialog.getTitle();
+    if (helm.window instanceof JFrame) {
+      title = ((JFrame) helm.window).getTitle();
+    } else if (helm.window instanceof JDialog) {
+      title = ((JDialog) helm.window).getTitle();
     }
     java.awt.EventQueue.invokeLater(() -> {
       try {

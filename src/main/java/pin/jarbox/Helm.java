@@ -18,54 +18,54 @@ public class Helm {
   public Helm(Window window, Panel container) {
     this.window = window;
     this.container = container;
-    if (window instanceof JFrame jFrame) {
-      jFrame.setContentPane(container.getMain());
-    } else if (window instanceof JDialog jDialog) {
-      jDialog.setContentPane(container.getMain());
+    if (window instanceof JFrame) {
+      ((JFrame) window).setContentPane(container.getMain());
+    } else if (window instanceof JDialog) {
+      ((JDialog) window).setContentPane(container.getMain());
     }
     container.panel.setBorder(BorderFactory.createEmptyBorder(4, 4, 2, 2));
     putShortcut("Close", "ESCAPE", () -> close());
   }
 
   public void setExitOnClose() {
-    if (window instanceof JFrame jFrame) {
-      jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    } else if (window instanceof JDialog jDialog) {
-      jDialog.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+    if (window instanceof JFrame) {
+      ((JFrame) window).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    } else if (window instanceof JDialog) {
+      ((JDialog) window).setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
     }
   }
 
   public void setDisposeOnClose() {
-    if (window instanceof JFrame jFrame) {
-      jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    } else if (window instanceof JDialog jDialog) {
-      jDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    if (window instanceof JFrame) {
+      ((JFrame) window).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    } else if (window instanceof JDialog) {
+      ((JDialog) window).setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
   }
 
   public void setHideOnClose() {
-    if (window instanceof JFrame jFrame) {
-      jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-    } else if (window instanceof JDialog jDialog) {
-      jDialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+    if (window instanceof JFrame) {
+      ((JFrame) window).setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    } else if (window instanceof JDialog) {
+      ((JDialog) window).setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
     }
   }
 
   public void setCancelOnClose() {
-    if (window instanceof JFrame jFrame) {
-      jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-    } else if (window instanceof JDialog jDialog) {
-      jDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+    if (window instanceof JFrame) {
+      ((JFrame) window).setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    } else if (window instanceof JDialog) {
+      ((JDialog) window).setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
     }
   }
 
   public void setIcon(BufferedImage image) {
     window.setIconImage(image);
     boolean isMain = false;
-    if (window instanceof JFrame jFrame) {
-      isMain = jFrame.getDefaultCloseOperation() == JFrame.EXIT_ON_CLOSE;
-    } else if (window instanceof JDialog jDialog) {
-      isMain = jDialog.getDefaultCloseOperation() == JDialog.EXIT_ON_CLOSE;
+    if (window instanceof JFrame) {
+      isMain = ((JFrame) window).getDefaultCloseOperation() == JFrame.EXIT_ON_CLOSE;
+    } else if (window instanceof JDialog) {
+      isMain = ((JDialog) window).getDefaultCloseOperation() == JDialog.EXIT_ON_CLOSE;
     }
     if (isMain) {
       try {
@@ -76,10 +76,10 @@ public class Helm {
   }
 
   public void setDefaultButton(JButton button) {
-    if (window instanceof JFrame jFrame) {
-      jFrame.getRootPane().setDefaultButton(button);
-    } else if (window instanceof JDialog jDialog) {
-      jDialog.getRootPane().setDefaultButton(button);
+    if (window instanceof JFrame) {
+      ((JFrame) window).getRootPane().setDefaultButton(button);
+    } else if (window instanceof JDialog) {
+      ((JDialog) window).getRootPane().setDefaultButton(button);
     }
   }
 
@@ -96,42 +96,42 @@ public class Helm {
 
   public void close() {
     callWindowClosing();
-    if (window instanceof JFrame jFrame) {
-      switch (jFrame.getDefaultCloseOperation()) {
+    if (window instanceof JFrame) {
+      switch (((JFrame) window).getDefaultCloseOperation()) {
         case JFrame.DO_NOTHING_ON_CLOSE:
           break;
         case JFrame.HIDE_ON_CLOSE:
-          jFrame.setVisible(false);
+          ((JFrame) window).setVisible(false);
           callWindowClosed();
           break;
         case JFrame.DISPOSE_ON_CLOSE:
-          jFrame.setVisible(false);
-          jFrame.dispose();
+          ((JFrame) window).setVisible(false);
+          ((JFrame) window).dispose();
           callWindowClosed();
           break;
         case JFrame.EXIT_ON_CLOSE:
-          jFrame.setVisible(false);
-          jFrame.dispose();
+          ((JFrame) window).setVisible(false);
+          ((JFrame) window).dispose();
           callWindowClosed();
           System.exit(0);
           break;
       }
-    } else if (window instanceof JDialog jDialog) {
-      switch (jDialog.getDefaultCloseOperation()) {
+    } else if (window instanceof JDialog) {
+      switch (((JDialog) window).getDefaultCloseOperation()) {
         case JDialog.DO_NOTHING_ON_CLOSE:
           break;
         case JDialog.HIDE_ON_CLOSE:
-          jDialog.setVisible(false);
+          ((JDialog) window).setVisible(false);
           callWindowClosed();
           break;
         case JDialog.DISPOSE_ON_CLOSE:
-          jDialog.setVisible(false);
-          jDialog.dispose();
+          ((JDialog) window).setVisible(false);
+          ((JDialog) window).dispose();
           callWindowClosed();
           break;
         case JDialog.EXIT_ON_CLOSE:
-          jDialog.setVisible(false);
-          jDialog.dispose();
+          ((JDialog) window).setVisible(false);
+          ((JDialog) window).dispose();
           callWindowClosed();
           System.exit(0);
           break;
