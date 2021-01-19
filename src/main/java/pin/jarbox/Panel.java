@@ -31,6 +31,14 @@ public abstract class Panel {
 
   public abstract Panel add(Component component);
 
+  public abstract Panel addGrow(Component component, int weight);
+
+  public abstract Panel addGrow(Component component);
+
+  public abstract Panel addCross(Component component, int weight);
+
+  public abstract Panel addCross(Component component);
+
   public abstract Panel addMax(Component component, int weight);
 
   public abstract Panel addMax(Component component);
@@ -39,6 +47,26 @@ public abstract class Panel {
 
   public Panel add(Panel panel) {
     add(panel.getMain());
+    return this;
+  }
+
+  public Panel addGrow(Panel panel, int weight) {
+    addGrow(panel.getMain(), weight);
+    return this;
+  }
+
+  public Panel addGrow(Panel panel) {
+    addGrow(panel.getMain());
+    return this;
+  }
+
+  public Panel addCross(Panel panel, int weight) {
+    addCross(panel.getMain(), weight);
+    return this;
+  }
+
+  public Panel addCross(Panel panel) {
+    addCross(panel.getMain());
     return this;
   }
 

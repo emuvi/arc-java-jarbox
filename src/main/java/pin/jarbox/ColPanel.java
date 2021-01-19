@@ -46,6 +46,36 @@ public class ColPanel extends Panel {
   }
 
   @Override
+  public ColPanel addGrow(Component component, int weight) {
+    constraints.gridy++;
+    constraints.fill = GridBagConstraints.VERTICAL;
+    constraints.weightx = 0;
+    constraints.weighty = weight;
+    panel.add(component, constraints);
+    return this;
+  }
+
+  @Override
+  public ColPanel addGrow(Component component) {
+    return addGrow(component, 1);
+  }
+
+  @Override
+  public ColPanel addCross(Component component, int weight) {
+    constraints.gridy++;
+    constraints.fill = GridBagConstraints.HORIZONTAL;
+    constraints.weightx = weight;
+    constraints.weighty = 0;
+    panel.add(component, constraints);
+    return this;
+  }
+
+  @Override
+  public ColPanel addCross(Component component) {
+    return addCross(component, 1);
+  }
+
+  @Override
   public ColPanel addMax(Component component, int weight) {
     constraints.gridy++;
     constraints.fill = GridBagConstraints.BOTH;

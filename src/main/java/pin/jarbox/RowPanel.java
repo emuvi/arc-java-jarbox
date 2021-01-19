@@ -42,6 +42,36 @@ public class RowPanel extends Panel {
   }
 
   @Override
+  public RowPanel addGrow(Component component, int weight) {
+    constraints.gridx++;
+    constraints.fill = GridBagConstraints.HORIZONTAL;
+    constraints.weightx = weight;
+    constraints.weighty = 0;
+    panel.add(component, constraints);
+    return this;
+  }
+
+  @Override
+  public RowPanel addGrow(Component component) {
+    return addGrow(component, 1);
+  }
+
+  @Override
+  public RowPanel addCross(Component component, int weight) {
+    constraints.gridx++;
+    constraints.fill = GridBagConstraints.VERTICAL;
+    constraints.weightx = 0;
+    constraints.weighty = weight;
+    panel.add(component, constraints);
+    return this;
+  }
+
+  @Override
+  public RowPanel addCross(Component component) {
+    return addCross(component, 1);
+  }
+
+  @Override
   public RowPanel addMax(Component component, int weight) {
     constraints.gridx++;
     constraints.fill = GridBagConstraints.BOTH;
