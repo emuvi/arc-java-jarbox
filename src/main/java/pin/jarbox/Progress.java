@@ -2,33 +2,29 @@ package pin.jarbox;
 
 public abstract class Progress {
 
-  private volatile boolean paused;
-  private volatile boolean stopped;
+  private final String title;
 
-  public Progress() {
-    paused = false;
-    stopped = false;
+  public Progress(String title) {
+    this.title = title;
   }
 
-  public synchronized void pause() {
-    paused = true;
+  public String getTitle() {
+    return title;
   }
 
-  public synchronized void resume() {
-    paused = false;
-  }
+  public abstract void pause();
 
-  public synchronized void stop() {
-    stopped = true;
-  }
+  public abstract void resume();
 
-  public synchronized boolean isPaused() {
-    return paused;
-  }
+  public abstract void stop();
 
-  public synchronized boolean isStopped() {
-    return stopped;
-  }
+  public abstract boolean isPaused();
+
+  public abstract boolean isStopped();
+
+  public abstract void setSize(int size);
+
+  public abstract void setWalked(int walked);
 
   public abstract void log(String message);
 
