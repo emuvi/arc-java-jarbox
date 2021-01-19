@@ -78,8 +78,8 @@ public class Utils {
 
   public static String title = "Pointel";
 
-  public static void startSystemLook() {
-    java.awt.EventQueue.invokeLater(() -> {
+  public static void startSystemLook() throws Exception {
+    java.awt.EventQueue.invokeAndWait(() -> {
       try {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       } catch (Exception e) {
@@ -88,14 +88,14 @@ public class Utils {
     });
   }
 
-  public static void startMain(Helm helm) {
-    if (helm.window instanceof JFrame) {
-      title = ((JFrame) helm.window).getTitle();
-    } else if (helm.window instanceof JDialog) {
-      title = ((JDialog) helm.window).getTitle();
-    }
-    java.awt.EventQueue.invokeLater(() -> {
+  public static void startMain(Helm helm) throws Exception {
+    java.awt.EventQueue.invokeAndWait(() -> {
       try {
+        if (helm.window instanceof JFrame) {
+          title = ((JFrame) helm.window).getTitle();
+        } else if (helm.window instanceof JDialog) {
+          title = ((JDialog) helm.window).getTitle();
+        }
         helm.show();
       } catch (Exception e) {
         Utils.treat(e);
