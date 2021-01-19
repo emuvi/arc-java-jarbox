@@ -10,7 +10,9 @@ public class ColPanel extends Panel {
 
   private final GridBagConstraints constraints;
 
-  public ColPanel() { this(false); }
+  public ColPanel() {
+    this(false);
+  }
 
   public ColPanel(boolean scrollable) {
     super(scrollable, new GridBagLayout());
@@ -21,7 +23,9 @@ public class ColPanel extends Panel {
     constraints.gridy = 0;
   }
 
-  public ColPanel(Component... components) { this(false, components); }
+  public ColPanel(Component... components) {
+    this(false, components);
+  }
 
   public ColPanel(boolean scrollable, Component... components) {
     this(scrollable);

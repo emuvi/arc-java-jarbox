@@ -11,7 +11,9 @@ public abstract class Panel {
   public final JPanel panel;
   public final JScrollPane scroll;
 
-  public Panel() { this(false); }
+  public Panel() {
+    this(false);
+  }
 
   public Panel(boolean scrollable) {
     panel = new JPanel();
@@ -23,7 +25,9 @@ public abstract class Panel {
     scroll = scrollable ? new JScrollPane(panel) : null;
   }
 
-  public JComponent getMain() { return scroll != null ? scroll : panel; }
+  public JComponent getMain() {
+    return scroll != null ? scroll : panel;
+  }
 
   public abstract Panel add(Component component);
 

@@ -92,7 +92,9 @@ public class Helm {
     WzdDesk.setNextLocationFor(window);
   }
 
-  public void show() { window.setVisible(true); }
+  public void show() {
+    window.setVisible(true);
+  }
 
   public void close() {
     callWindowClosing();
