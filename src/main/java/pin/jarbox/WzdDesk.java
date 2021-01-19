@@ -423,4 +423,20 @@ public class WzdDesk {
     }
   }
 
+  public static void callOrInvoke(Runnable runnable) {
+    if (SwingUtilities.isEventDispatchThread()) {
+      runnable.run();
+    } else {
+      SwingUtilities.invokeLater(runnable);
+    }
+  }
+
+  public static void callOrWait(Runnable runnable) throws Exception {
+    if (SwingUtilities.isEventDispatchThread()) {
+      runnable.run();
+    } else {
+      SwingUtilities.invokeAndWait(runnable);
+    }
+  }
+
 }
