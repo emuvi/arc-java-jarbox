@@ -25,7 +25,7 @@ public class HelmEdit<T> extends Helm {
 
   public HelmEdit(Class<T> clazz, T value, boolean returnNewValue,
       Function<T, Boolean> returnFunction) throws Exception {
-    super(new JFrame("Edit " + Utils.spaceUppers(clazz.getSimpleName())),
+    super(new JFrame("Edit " + WzdChars.spaceUppers(clazz.getSimpleName())),
         new ColPanel(true));
     this.clazz = clazz;
     this.value = value;
@@ -69,7 +69,7 @@ public class HelmEdit<T> extends Helm {
       edit.defValue(field.get(value));
     }
     JLabel label =
-      new JLabel(Utils.upperFirst(Utils.spaceUppers(field.getName())) + ": ");
+      new JLabel(WzdChars.upperFirst(WzdChars.spaceUppers(field.getName())) + ": ");
     JPanel line = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 2));
     line.add(label);
     line.add(edit);
@@ -79,7 +79,7 @@ public class HelmEdit<T> extends Helm {
   }
 
   private void closeFields() {
-    Utils.setWidthMinAsPreferredMax(
+    WzdDesk.setWidthMinAsPreferredMax(
         labels.toArray(new JComponent[labels.size()]));
     JButton confirm = new JButton("Confirm");
     confirm.addActionListener(event -> confirm());
@@ -116,7 +116,7 @@ public class HelmEdit<T> extends Helm {
         close();
       }
     } catch (Exception e) {
-      Utils.treat(e);
+      WzdLog.treat(e);
     }
   }
 }

@@ -89,7 +89,7 @@ public class Helm {
     size.width += 45;
     size.height += 45;
     window.setSize(size);
-    Utils.setNextLocationFor(window);
+    WzdDesk.setNextLocationFor(window);
   }
 
   public void show() { window.setVisible(true); }
@@ -149,7 +149,7 @@ public class Helm {
 
   public void putShortcut(String name, String keyStroke, Runnable runnable) {
     if (container != null) {
-      Utils.putShortCut(container.getMain(), name, keyStroke, runnable);
+      WzdDesk.putShortCut(container.getMain(), name, keyStroke, runnable);
     }
   }
 }

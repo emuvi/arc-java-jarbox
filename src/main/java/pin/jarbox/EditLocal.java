@@ -20,22 +20,22 @@ public class EditLocal extends Edit<Local> {
     super();
     pasteButton.setIcon(new ImageIcon(Icons.getPaste()));
     pasteButton.addActionListener(event -> paste());
-    field.add(Utils.wrap(x, "X:"));
-    field.add(Utils.wrap(y, "Y:"));
-    field.add(Utils.wrap(pasteButton, " "));
+    field.add(WzdDesk.wrap(x, "X:"));
+    field.add(WzdDesk.wrap(y, "Y:"));
+    field.add(WzdDesk.wrap(pasteButton, " "));
     addMain(field);
   }
 
   public void paste() {
     try {
-      String pasted = Utils.getStringFromClipboard();
+      String pasted = WzdDesk.getStringFromClipboard();
       if (pasted != null) {
         String[] parts = pasted.split("\\,");
         x.setValue(Integer.parseInt(parts[0]));
         y.setValue(Integer.parseInt(parts[1]));
       }
     } catch (Exception e) {
-      Utils.treat(e);
+      WzdLog.treat(e);
     }
   }
 

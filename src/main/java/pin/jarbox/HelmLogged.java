@@ -32,7 +32,7 @@ public class HelmLogged {
     refresh.addActionListener(event -> menuRefresh());
     panel.add(scroll);
     window.pack();
-    Utils.putShortCut(panel, "Exit", "ESCAPE", () -> window.setVisible(false));
+    WzdDesk.putShortCut(panel, "Exit", "ESCAPE", () -> window.setVisible(false));
   }
 
   private void menuRefresh() { text.setText(Console.instance.getLogged()); }
@@ -40,7 +40,7 @@ public class HelmLogged {
   public void show() {
     window.setVisible(true);
     text.setText(Console.instance.getLogged());
-    Utils.delay(500, () -> {
+    WzdBin.delay(500, () -> {
       SwingUtilities.invokeLater(() -> {
         scroll.getVerticalScrollBar().setValue(
             scroll.getVerticalScrollBar().getMaximum());

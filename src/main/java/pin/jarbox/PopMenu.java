@@ -1,6 +1,5 @@
 package pin.jarbox;
 
-import pin.jarbox.WzdString;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -27,6 +26,10 @@ public class PopMenu {
 
   public JPopupMenu getJMenu() {
     return jpmMenu;
+  }
+
+  public Point getLastClick() {
+    return lastClick;
   }
 
   public PopMenu put(String title) {
@@ -303,7 +306,7 @@ public class PopMenu {
 
   public PopMenu set(String origin, String title, Character mnemonic, Icon icon,
                      ActionListener action) {
-    String name = WzdString.sum(origin, ".", title);
+    String name = WzdChars.sum(origin, ".", title);
     JComponent element = WzdDesk.getItem(jpmMenu, name);
     if (element instanceof JMenu) {
       JMenu elem = (JMenu) element;
@@ -441,7 +444,7 @@ public class PopMenu {
   }
 
   public void execute(String origin, String title) {
-    JMenuItem item = WzdDesk.getMenuItem(jpmMenu, WzdString.sum(origin, ".", title));
+    JMenuItem item = WzdDesk.getMenuItem(jpmMenu, WzdChars.sum(origin, ".", title));
     WzdDesk.execute(item.getActionListeners());
   }
 

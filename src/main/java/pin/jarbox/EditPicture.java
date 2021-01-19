@@ -59,7 +59,7 @@ public class EditPicture extends Edit<Picture> {
 
   private void paste() {
     try {
-      BufferedImage pasted = (BufferedImage) Utils.getImageFromClipboard();
+      BufferedImage pasted = (BufferedImage) WzdDesk.getImageFromClipboard();
       if (pasted != null) {
         loaded = pasted;
         view.setIcon(new ImageIcon(loaded));
@@ -76,7 +76,7 @@ public class EditPicture extends Edit<Picture> {
         selected = chooser.getSelectedFile();
       }
     } catch (Exception e) {
-      Utils.treat(e);
+      WzdLog.treat(e);
     }
   }
 
@@ -86,12 +86,12 @@ public class EditPicture extends Edit<Picture> {
         try (FileOutputStream fos =
             new FileOutputStream(chooser.getSelectedFile())) {
           ImageIO.write(loaded,
-              Utils.getExtension(chooser.getSelectedFile().getName()), fos);
+              WzdFile.getExtension(chooser.getSelectedFile().getName()), fos);
           selected = chooser.getSelectedFile();
             }
       }
     } catch (Exception e) {
-      Utils.treat(e);
+      WzdLog.treat(e);
     }
   }
 

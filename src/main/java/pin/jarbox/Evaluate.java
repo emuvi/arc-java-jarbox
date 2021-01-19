@@ -29,9 +29,9 @@ public class Evaluate {
       } else if (token.startsWith("$")) {
         stack.addFirst(variables.get(token));
       } else if (token.startsWith("\"")) {
-        stack.addFirst(Utils.getFromDoubleQuotes(token));
+        stack.addFirst(WzdChars.getFromDoubleQuotes(token));
       } else if (Character.isDigit(token.charAt(0))) {
-        stack.addFirst(Utils.getNumber(token));
+        stack.addFirst(WzdChars.getNumber(token));
       } else if (token.equals("\\")) {
         stack.pollFirst();
       } else if (token.equals("true")) {

@@ -53,7 +53,7 @@ public class Console extends PrintStream {
         }
       }
       if (argName.equals(argument) || argName.equals(orArgument)) {
-        return Utils.getFromDoubleQuotes(argValue);
+        return WzdChars.getFromDoubleQuotes(argValue);
       }
     }
     return defaultValue;

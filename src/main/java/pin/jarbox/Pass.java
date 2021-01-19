@@ -22,7 +22,7 @@ public class Pass implements Serializable {
 
   @Override
   public String toString() {
-    return Utils.fill('*', value != null ? value.length : 0);
+    return WzdChars.fill('*', value != null ? value.length : 0);
   }
 
 }

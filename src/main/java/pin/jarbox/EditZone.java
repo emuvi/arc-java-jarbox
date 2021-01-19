@@ -22,14 +22,14 @@ public class EditZone extends Edit<Zone> {
   public EditZone() {
     super();
     JPanel first = new JPanel(new FlowLayout(FlowLayout.LEFT, 4, 0));
-    first.add(Utils.wrap(x, "X:"));
-    first.add(Utils.wrap(y, "Y:"));
+    first.add(WzdDesk.wrap(x, "X:"));
+    first.add(WzdDesk.wrap(y, "Y:"));
     JPanel second = new JPanel(new FlowLayout(FlowLayout.LEFT, 4, 0));
-    second.add(Utils.wrap(width, "Width:"));
-    second.add(Utils.wrap(height, "Height:"));
+    second.add(WzdDesk.wrap(width, "Width:"));
+    second.add(WzdDesk.wrap(height, "Height:"));
     pasteButton.setIcon(new ImageIcon(Icons.getPaste()));
     pasteButton.addActionListener(event -> paste());
-    second.add(Utils.wrap(pasteButton, " "));
+    second.add(WzdDesk.wrap(pasteButton, " "));
     field.setLayout(new BoxLayout(field, BoxLayout.Y_AXIS));
     field.add(first);
     field.add(second);
@@ -38,7 +38,7 @@ public class EditZone extends Edit<Zone> {
 
   public void paste() {
     try {
-      String pasted = Utils.getStringFromClipboard();
+      String pasted = WzdDesk.getStringFromClipboard();
       if (pasted != null) {
         String[] parts = pasted.split("\\,");
         x.setValue(Integer.parseInt(parts[0]));
@@ -47,7 +47,7 @@ public class EditZone extends Edit<Zone> {
         height.setValue(Integer.parseInt(parts[3]));
       }
     } catch (Exception e) {
-      Utils.treat(e);
+      WzdLog.treat(e);
     }
   }
 

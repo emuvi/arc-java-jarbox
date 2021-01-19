@@ -32,7 +32,7 @@ public class Icons {
     try {
       return ImageIO.read(clazz.getResourceAsStream(name));
     } catch (Exception e) {
-      Utils.treat(e, true);
+      WzdLog.treat(e, true);
       return error;
     }
   }
@@ -41,7 +41,7 @@ public class Icons {
     try {
       return ImageIO.read(Icons.class.getResourceAsStream(name));
     } catch (Exception e) {
-      Utils.treat(e, true);
+      WzdLog.treat(e, true);
       return error;
     }
   }
