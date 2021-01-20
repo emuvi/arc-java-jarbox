@@ -26,6 +26,12 @@ public abstract class Progress {
 
   public abstract void setWalked(int walked);
 
+  public abstract void disablePause();
+
+  public abstract void disableStop();
+
+  public abstract void disableWalker();
+
   public abstract void log(String message);
 
   public void log(Exception error) {

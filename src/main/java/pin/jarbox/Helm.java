@@ -27,39 +27,43 @@ public class Helm {
     putShortcut("Close", "ESCAPE", () -> close());
   }
 
-  public void setExitOnClose() {
+  public Helm setExitOnClose() {
     if (window instanceof JFrame) {
       ((JFrame) window).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     } else if (window instanceof JDialog) {
       ((JDialog) window).setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
     }
+    return this;
   }
 
-  public void setDisposeOnClose() {
+  public Helm setDisposeOnClose() {
     if (window instanceof JFrame) {
       ((JFrame) window).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     } else if (window instanceof JDialog) {
       ((JDialog) window).setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
+    return this;
   }
 
-  public void setHideOnClose() {
+  public Helm setHideOnClose() {
     if (window instanceof JFrame) {
       ((JFrame) window).setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     } else if (window instanceof JDialog) {
       ((JDialog) window).setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
     }
+    return this;
   }
 
-  public void setCancelOnClose() {
+  public Helm setCancelOnClose() {
     if (window instanceof JFrame) {
       ((JFrame) window).setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     } else if (window instanceof JDialog) {
       ((JDialog) window).setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
     }
+    return this;
   }
 
-  public void setIcon(BufferedImage image) {
+  public Helm setIcon(BufferedImage image) {
     window.setIconImage(image);
     boolean isMain = false;
     if (window instanceof JFrame) {
@@ -73,30 +77,39 @@ public class Helm {
       } catch (Exception e) {
       }
     }
+    return this;
   }
 
-  public void setDefaultButton(JButton button) {
+  public Helm setDefaultButton(JButton button) {
     if (window instanceof JFrame) {
       ((JFrame) window).getRootPane().setDefaultButton(button);
     } else if (window instanceof JDialog) {
       ((JDialog) window).getRootPane().setDefaultButton(button);
     }
+    return this;
   }
 
-  public void pack() {
+  public Helm pack() {
     window.pack();
     Dimension size = container.panel.getPreferredSize();
     size.width += 45;
     size.height += 45;
     window.setSize(size);
     WzdDesk.setNextLocationFor(window);
+    return this;
   }
 
-  public void show() {
+  public Helm setSize(int width, int height) {
+    window.setSize(width, height);
+    return this;
+  }
+
+  public Helm show() {
     window.setVisible(true);
+    return this;
   }
 
-  public void close() {
+  public Helm close() {
     callWindowClosing();
     if (window instanceof JFrame) {
       switch (((JFrame) window).getDefaultCloseOperation()) {
@@ -139,19 +152,23 @@ public class Helm {
           break;
       }
     }
+    return this;
   }
 
-  public void callWindowClosed() {
+  public Helm callWindowClosed() {
     window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSED));
+    return this;
   }
 
-  public void callWindowClosing() {
+  public Helm callWindowClosing() {
     window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
+    return this;
   }
 
-  public void putShortcut(String name, String keyStroke, Runnable runnable) {
+  public Helm putShortcut(String name, String keyStroke, Runnable runnable) {
     if (container != null) {
       WzdDesk.putShortCut(container.getMain(), name, keyStroke, runnable);
     }
+    return this;
   }
 }

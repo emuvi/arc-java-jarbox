@@ -79,4 +79,31 @@ public abstract class Panel {
     addMax(panel.getMain());
     return this;
   }
+
+  public Panel del(Component component) {
+    panel.remove(component);
+    return this;
+  }
+
+  public Panel del(Panel panel) {
+    return del(panel.getMain());
+  }
+
+  public boolean contains(Component component) {
+    for (int i = 0; i < panel.getComponentCount(); i++) {
+      if (panel.getComponent(i) == component) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean contains(Panel panel) {
+    return contains(panel.getMain());
+  }
+
+  public boolean isEmpty() {
+    return panel.getComponentCount() == 0;
+  }
+  
 }
