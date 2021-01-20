@@ -35,12 +35,15 @@ import javax.swing.UIManager;
 
 public class WzdDesk {
 
+  public static boolean started = false;
+
   public static void startSystemLook() throws Exception {
     java.awt.EventQueue.invokeAndWait(() -> {
       try {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        started = true;
       } catch (Exception e) {
-        WzdLog.treat(e, true);
+        WzdLog.treat(e);
       }
     });
   }
@@ -54,13 +57,16 @@ public class WzdDesk {
           WzdBin.title = ((JDialog) helm.window).getTitle();
         }
         helm.show();
+        started = true;
       } catch (Exception e) {
         WzdLog.treat(e);
       }
     });
   }
 
-  public static void message(String message) { message(message, false); }
+  public static void message(String message) {
+    message(message, false);
+  }
 
   public static void message(String message, boolean silent) {
     WzdLog.treat(message);
@@ -79,14 +85,12 @@ public class WzdDesk {
 
   public static boolean question(String question) {
     return JOptionPane.showConfirmDialog(getActiveWindow(), question, WzdBin.title,
-        JOptionPane.YES_NO_OPTION) ==
-      JOptionPane.YES_OPTION;
+        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
   }
 
   public static String input(String question, String value) {
-    return (String)JOptionPane.showInputDialog(
-        getActiveWindow(), question, WzdBin.title, JOptionPane.QUESTION_MESSAGE, null,
-        null, value);
+    return (String) JOptionPane.showInputDialog(getActiveWindow(), question, WzdBin.title,
+        JOptionPane.QUESTION_MESSAGE, null, null, value);
   }
 
   public static Window getActiveWindow() {
@@ -107,9 +111,8 @@ public class WzdDesk {
     Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
     if (result == null) {
       Randomize randomize = new Randomize();
-      result =
-        new Point(randomize.getInteger(screen.width - window.getWidth()),
-            randomize.getInteger(screen.height - window.getHeight()));
+      result = new Point(randomize.getInteger(screen.width - window.getWidth()),
+          randomize.getInteger(screen.height - window.getHeight()));
     } else {
       if (result.x + window.getWidth() > screen.width) {
         result.x = screen.width - window.getWidth();
@@ -136,17 +139,16 @@ public class WzdDesk {
       }
     }
     for (JComponent component : ofComponents) {
-      Dimension dimension =
-        new Dimension(maxValue, component.getPreferredSize().height);
+      Dimension dimension = new Dimension(maxValue, component.getPreferredSize().height);
       component.setMinimumSize(dimension);
       component.setPreferredSize(dimension);
     }
   }
 
-  public static void putShortCut(JComponent component, String name,
-      String keyStroke, Runnable runnable) {
+  public static void putShortCut(JComponent component, String name, String keyStroke,
+      Runnable runnable) {
     InputMap inputMap =
-      component.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        component.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     ActionMap actionMap = component.getActionMap();
     inputMap.put(KeyStroke.getKeyStroke(keyStroke), name);
     actionMap.put(name, getAction(runnable));
@@ -164,8 +166,8 @@ public class WzdDesk {
   }
 
   public static String getStringFromClipboard() throws Exception {
-    return (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(
-        DataFlavor.stringFlavor);
+    return (String) Toolkit.getDefaultToolkit().getSystemClipboard()
+        .getData(DataFlavor.stringFlavor);
   }
 
   public static void copyToClipboard(String theString) {
@@ -176,11 +178,11 @@ public class WzdDesk {
 
   public static BufferedImage getImageFromClipboard() throws Exception {
     Transferable transferable =
-      Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
-    if (transferable != null &&
-        transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
+        Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
+    if (transferable != null
+        && transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
       BufferedImage pasted =
-        (BufferedImage)transferable.getTransferData(DataFlavor.imageFlavor);
+          (BufferedImage) transferable.getTransferData(DataFlavor.imageFlavor);
       return convertToRGB(pasted);
     } else {
       return null;
@@ -188,8 +190,8 @@ public class WzdDesk {
   }
 
   public static BufferedImage convertToRGB(BufferedImage image) {
-    BufferedImage result = new BufferedImage(
-        image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+    BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(),
+        BufferedImage.TYPE_INT_RGB);
     result.createGraphics().drawImage(image, 0, 0, Color.WHITE, null);
     return result;
   }
