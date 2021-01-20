@@ -7,7 +7,14 @@ public class WzdLog {
   public static final boolean DEBUG = false;
 
   public static void treat(String message, Object... values) {
-    System.out.println(String.format(message, values));
+    var formated = String.format(message, values);
+    System.out.println(formated);
+    if (WzdDesk.started) {
+      WzdDesk.callOrInvoke(() -> {
+        JOptionPane.showMessageDialog(null, formated, WzdBin.title,
+            JOptionPane.INFORMATION_MESSAGE);
+      });
+    }
   }
 
   public static void treat(Exception error) {
