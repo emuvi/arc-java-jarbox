@@ -2,39 +2,37 @@ package pin.jarbox;
 
 public class WzdChars {
 
-  public static String sum(String... allStrings) {
-    return sum(allStrings, null);
+  public static String firstNonEmpty(String... ofStrings) {
+    if (ofStrings == null) {
+      return "";
+    }
+    for (String chars : ofStrings) {
+      if (chars != null && !chars.isEmpty()) {
+        return chars;
+      }
+    }
+    return "";
   }
 
-  public static String sum(String[] allStrings, String withUnion) {
+  public static String sum(String withUnion, String... allStrings) {
     if (allStrings == null) {
       return null;
     }
-    String retorno = "";
-    for (String osCaracteres : allStrings) {
-      retorno = sum(retorno, withUnion, osCaracteres);
+    if (withUnion == null) {
+      withUnion = "";
     }
-    return retorno;
-  }
-
-  public static String sum(String theString, String withString) {
-    return sum(theString, null, withString);
-  }
-
-  public static String sum(String theString, String withUnion, String andString) {
-    String retorno = theString;
-    if (andString != null) {
-      if (!andString.isEmpty()) {
-        if (retorno == null) {
-          retorno = andString;
-        } else if (retorno.isEmpty()) {
-          retorno = andString;
-        } else {
-          retorno += (withUnion != null ? withUnion : "") + andString;
+    boolean atLeastOne = false;
+    StringBuilder result = new StringBuilder();
+    for (String chars : allStrings) {
+      if (chars != null && !chars.isEmpty()) {
+        if (atLeastOne) {
+          result.append(withUnion);
         }
+        result.append(chars);
+        atLeastOne = true;
       }
     }
-    return retorno;
+    return result.toString();
   }
 
   public static String spaceUppers(final String string) {
