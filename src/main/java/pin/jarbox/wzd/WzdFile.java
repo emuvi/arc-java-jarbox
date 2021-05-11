@@ -10,9 +10,38 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class WzdFile {
 
+  public static String clean(String path) {
+    return getAbsolute(fixSeparators(path));
+  }
+
+  public static String getAbsolute(String path) {
+    if (path == null || path.isEmpty()) {
+      return path;
+    }
+    final var samePrefix = "." + File.separator;
+    final var upperPrefix = ".." + File.separator;
+    final var homePrefix = "~" + File.separator;
+    if (path.startsWith(samePrefix) || path.startsWith(upperPrefix)) {
+      var workingDir = new File(System.getProperty("user.dir"));
+      while (path.startsWith(samePrefix) || path.startsWith(upperPrefix)) {
+        if (path.startsWith(samePrefix)) {
+          path = path.substring(samePrefix.length());
+        } else {
+          workingDir = workingDir.getParentFile();
+          path = path.substring(upperPrefix.length());
+        }
+      }
+      return sum(workingDir.getAbsolutePath(), path);
+    } else if (path.startsWith(homePrefix)) {
+      var homeDir = new File(System.getProperty("user.home"));
+      return sum(homeDir.getAbsolutePath(), path);
+    }
+    return path;
+  }
+
   public static String fixSeparators(String path) {
-    if (path == null) {
-      return null;
+    if (WzdChars.isEmpty(path)) {
+      return path;
     }
     if (path.contains("\\") && File.separator.equals("/")) {
       path = path.replaceAll("\\", "/");
@@ -23,15 +52,17 @@ public class WzdFile {
   }
 
   public static String sum(String path, String child) {
-    String result = child;
-    if (path != null) {
-      if (path.endsWith(File.separator) || child.startsWith(File.separator)) {
-        result = path + child;
+    if (WzdChars.isNotEmpty(path) && WzdChars.isNotEmpty(child)) {
+      if (path.endsWith(File.separator) && child.startsWith(File.separator)) {
+        return path + child.substring(File.separator.length());
+      } else if (path.endsWith(File.separator) || child.startsWith(File.separator)) {
+        return path + child;
       } else {
-        result = path + File.separator + child;
+        return path + File.separator + child;
       }
+    } else {
+      return WzdChars.firstNonEmpty(path, child);
     }
-    return result;
   }
 
   public static String sum(String path, String... childs) {

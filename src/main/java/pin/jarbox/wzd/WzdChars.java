@@ -4,6 +4,10 @@ public class WzdChars {
 
   public static String LINE_SEPARATOR = "\r\n";
 
+  public static boolean isEmpty(String theString) {
+    return theString == null || theString.isEmpty();
+  }
+
   public static boolean isNotEmpty(String theString) {
     return theString != null && !theString.isEmpty();
   }
@@ -27,15 +31,16 @@ public class WzdChars {
     if (withUnion == null) {
       withUnion = "";
     }
-    boolean atLeastOne = false;
-    StringBuilder result = new StringBuilder();
+    var atLeastOne = false;
+    var result = new StringBuilder();
     for (String chars : allStrings) {
       if (isNotEmpty(chars)) {
         if (atLeastOne) {
           result.append(withUnion);
+        } else {
+          atLeastOne = true;
         }
         result.append(chars);
-        atLeastOne = true;
       }
     }
     return result.toString();
@@ -149,5 +154,29 @@ public class WzdChars {
       }
     }
     return false;
+  }
+
+  public static String replaceControlFlow(String inString) {
+    if (isEmpty(inString)) {
+      return inString;
+    }
+    inString = inString.replace("\\", "\\\\");
+    inString = inString.replace("\r", "\\r");
+    inString = inString.replace("\n", "\\n");
+    inString = inString.replace("\t", "\\t");
+    inString = inString.replace("\f", "\\f");
+    return inString;
+  }
+
+  public static String remakeControlFlow(String inString) {
+    if (isEmpty(inString)) {
+      return inString;
+    }
+    inString = inString.replace("\\f", "\f");
+    inString = inString.replace("\\t", "\t");
+    inString = inString.replace("\\n", "\n");
+    inString = inString.replace("\\r", "\r");
+    inString = inString.replace("\\\\", "\\");
+    return inString;
   }
 }
