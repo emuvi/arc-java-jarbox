@@ -22,6 +22,9 @@ public class WzdLog {
   public static void delConsumer(Consumer<String> consumer)  {
     if (consumers != null) {
       consumers.remove(consumer);
+      if (consumers.isEmpty()) {
+        consumers = null;
+      }
     }
   }
 
@@ -63,10 +66,10 @@ public class WzdLog {
 
   public static String getDescription(Exception error) {
     StringBuilder builder = new StringBuilder();
-    builder.append(Console.getOrigin(error));
-    builder.append(System.lineSeparator());
-    builder.append("    - ");
     builder.append(error.getMessage());
+    builder.append(System.lineSeparator());
+    builder.append("  : ");
+    builder.append(Console.getOrigin(error));
     return builder.toString();
   }
 

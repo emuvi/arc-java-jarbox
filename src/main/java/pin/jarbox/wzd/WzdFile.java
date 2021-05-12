@@ -3,6 +3,7 @@ package pin.jarbox.wzd;
 import java.io.File;
 import java.nio.file.Files;
 import java.security.MessageDigest;
+import java.util.Base64;
 import java.util.Objects;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -76,12 +77,10 @@ public class WzdFile {
   }
 
   public static File sum(File path, String... childs) {
-    File result = path;
-    if (result != null) {
-      if (childs != null) {
-        for (String filho : childs) {
-          result = new File(result, filho);
-        }
+    var result = path;
+    if (result != null && childs != null) {
+      for (String child : childs) {
+        result = new File(result, child);
       }
     }
     return result;
@@ -576,7 +575,11 @@ public class WzdFile {
         "Select file(s) from terminal is not yet implemmented.");
   }
 
-  public static String bytesToHex(byte[] bytes) {
+  public static String encodeToBase64(byte[] bytes) {
+    return Base64.getEncoder().encodeToString(bytes);
+  }
+
+  public static String encodeToHex(byte[] bytes) {
     StringBuilder hexString = new StringBuilder(2 * bytes.length);
     for (int i = 0; i < bytes.length; i++) {
       String hex = Integer.toHexString(0xff & bytes[i]);
@@ -593,7 +596,7 @@ public class WzdFile {
   }
 
   public static String checkSHA256(byte[] bytes) throws Exception {
-    return bytesToHex(MessageDigest.getInstance("SHA-256").digest(bytes));
+    return encodeToHex(MessageDigest.getInstance("SHA-256").digest(bytes));
   }
 
 }

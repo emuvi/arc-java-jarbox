@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import pin.jarbox.wzd.WzdChars;
-import pin.jarbox.wzd.WzdData;
+import pin.jarbox.wzd.WzdDate;
 import pin.jarbox.wzd.WzdFile;
 
 public class Console extends PrintStream {
@@ -36,7 +36,7 @@ public class Console extends PrintStream {
     }
     instance.putOnSystem();
     System.out.println("Console of " + appTitle + " (" + appVersion + ") started in "
-        + WzdData.MOMMENT_FORMAT.format(new Date(startedIn)));
+        + WzdDate.MOMMENT_FORMAT.format(new Date(startedIn)));
   }
 
   public static String[] getArguments() {
@@ -84,13 +84,13 @@ public class Console extends PrintStream {
       String argument = arguments.get(i);
       if (argument.startsWith("--")) {
         if (longCheck != null && argument.equals(longCheck)) {
-          if (i < arguments.size() -1) {
+          if (i < arguments.size() - 1) {
             return arguments.get(i + 1);
           }
         }
       } else if (argument.startsWith("-")) {
         if (shortCheck != null && argument.contains(shortCheck)) {
-          if (i < arguments.size() -1) {
+          if (i < arguments.size() - 1) {
             return arguments.get(i + 1);
           }
         }
@@ -138,7 +138,8 @@ public class Console extends PrintStream {
     for (int i = elements.length - 1; i >= 0; i--) {
       StackTraceElement element = elements[i];
       if (element.getClassName().startsWith("pin.") && !element.getClassName().equals(
-          "pin.jarbox.Console") && !element.getClassName().equals("pin.jarbox.WzdLog")) {
+          "pin.jarbox.bin.Console") && !element.getClassName().equals(
+              "pin.jarbox.wzd.WzdLog")) {
         if (first) {
           first = false;
         } else {
@@ -168,7 +169,8 @@ public class Console extends PrintStream {
     for (int i = elements.length - 1; i >= 0; i--) {
       StackTraceElement element = elements[i];
       if (element.getClassName().startsWith("pin.") && !element.getClassName().equals(
-          "pin.jarbox.Console") && !element.getClassName().equals("pin.jarbox.WzdLog")) {
+          "pin.jarbox.bin.Console") && !element.getClassName().equals(
+              "pin.jarbox.wzd.WzdLog")) {
         if (first) {
           first = false;
         } else {

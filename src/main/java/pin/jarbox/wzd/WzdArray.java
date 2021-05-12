@@ -1,5 +1,6 @@
 package pin.jarbox.wzd;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class WzdArray {
@@ -36,6 +37,19 @@ public class WzdArray {
       }
     }
     return false;
+  }
+  
+  @SuppressWarnings("all")
+  public static <T> T[] insert(int index, T value, T... onArray) {
+    if (onArray == null) {
+      return null;
+    }
+    T[] result = Arrays.copyOf(onArray, Math.max(onArray.length + 1, index + 1));
+    result[index] = value;
+    for (int i = index; i < onArray.length; i++) {
+      result[i + 1] = onArray[i];
+    }
+    return result;
   }
 
 }

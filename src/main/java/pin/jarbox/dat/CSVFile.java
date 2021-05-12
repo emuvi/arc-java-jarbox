@@ -15,24 +15,20 @@ import pin.jarbox.wzd.WzdChars;
 
 public class CSVFile implements Closeable {
 
-  public static enum Mode {
-    READ, WRITE, APPEND
-  };
-
   private final File file;
-  private final Mode mode;
+  private final FileMode mode;
   private final BufferedReader reader;
   private final PrintWriter writer;
 
-  public CSVFile(File file, Mode mode) throws Exception {
+  public CSVFile(File file, FileMode mode) throws Exception {
     this.file = file;
     this.mode = mode;
-    if (mode == Mode.READ) {
+    if (mode == FileMode.READ) {
       reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8));
       writer = null;
     } else {
       reader = null;
-      writer = new PrintWriter(new FileOutputStream(file, mode == Mode.APPEND), true,
+      writer = new PrintWriter(new FileOutputStream(file, mode == FileMode.APPEND), true,
           StandardCharsets.UTF_8);
     }
   }
@@ -41,7 +37,7 @@ public class CSVFile implements Closeable {
     return this.file;
   }
 
-  public Mode getMode() {
+  public FileMode getMode() {
     return this.mode;
   }
 
@@ -103,7 +99,7 @@ public class CSVFile implements Closeable {
     return result;
   }
 
-  public synchronized void writeLine(String[] columns) {
+  public synchronized void writeLine(String... columns) {
     for (int i = 0; i < columns.length; i++) {
       var column = WzdChars.replaceControlFlow(columns[i]);
       if (WzdChars.contains(column, '"', ' ', ',')) {

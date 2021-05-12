@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import pin.jarbox.wzd.WzdChars;
+import pin.jarbox.wzd.WzdData;
 
 public class TableHead {
 
@@ -44,7 +45,7 @@ public class TableHead {
     while (rst.next()) {
       TableField campo = new TableField();
       campo.name = rst.getString(4);
-      campo.nature = Nature.get(rst.getInt(5));
+      campo.nature = WzdData.getNatureOfSQL(rst.getInt(5));
       campo.size = rst.getInt(7);
       campo.precision = rst.getInt(9);
       campo.notNull = "NO".equals(rst.getString(18));

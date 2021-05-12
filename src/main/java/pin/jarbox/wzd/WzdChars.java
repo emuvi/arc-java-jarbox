@@ -25,6 +25,10 @@ public class WzdChars {
   }
 
   public static String sum(String withUnion, String... allStrings) {
+    return sum(withUnion, null, allStrings);
+  }
+
+  public static String sum(String withUnion, StringBuilder andBuilder, String... allStrings) {
     if (allStrings == null) {
       return null;
     }
@@ -32,7 +36,7 @@ public class WzdChars {
       withUnion = "";
     }
     var atLeastOne = false;
-    var result = new StringBuilder();
+    var result = andBuilder != null ? andBuilder: new StringBuilder();
     for (String chars : allStrings) {
       if (isNotEmpty(chars)) {
         if (atLeastOne) {
@@ -165,6 +169,7 @@ public class WzdChars {
     inString = inString.replace("\n", "\\n");
     inString = inString.replace("\t", "\\t");
     inString = inString.replace("\f", "\\f");
+    inString = inString.replace("\b", "\\b");
     return inString;
   }
 
@@ -172,6 +177,7 @@ public class WzdChars {
     if (isEmpty(inString)) {
       return inString;
     }
+    inString = inString.replace("\\b", "\b");
     inString = inString.replace("\\f", "\f");
     inString = inString.replace("\\t", "\t");
     inString = inString.replace("\\n", "\n");
