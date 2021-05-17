@@ -1,6 +1,8 @@
 package pin.jarbox.wzd;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class WzdArray {
@@ -38,7 +40,7 @@ public class WzdArray {
     }
     return false;
   }
-  
+
   @SuppressWarnings("all")
   public static <T> T[] insert(int index, T value, T... onArray) {
     if (onArray == null) {
@@ -48,6 +50,24 @@ public class WzdArray {
     result[index] = value;
     for (int i = index; i < onArray.length; i++) {
       result[i + 1] = onArray[i];
+    }
+    return result;
+  }
+
+  @SuppressWarnings("all")
+  public static <T> T[] getNotNull(T... elements) {
+    if (elements == null) {
+      return null;
+    }
+    List<T> list = new ArrayList<>();
+    for (T element : elements) {
+      if (element != null) {
+        list.add(element);
+      }
+    }
+    T[] result = Arrays.copyOf(elements, list.size());
+    for (int i = 0; i < list.size(); i++) {
+      result[i] = list.get(i);
     }
     return result;
   }

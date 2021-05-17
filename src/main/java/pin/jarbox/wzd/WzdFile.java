@@ -157,31 +157,39 @@ public class WzdFile {
     }
   }
 
-  public static String putOnBaseName(String path, String chars) {
-    String result = chars;
-    if (path != null) {
-      if (path.contains(".")) {
-        result = path.substring(0, path.lastIndexOf(".")) + chars + path.substring(path
-            .lastIndexOf("."));
-      } else {
-        result = path + chars;
-      }
+  public static String addOnBaseName(String path, String chars) {
+    if (path == null) {
+      return chars;
     }
-    return result;
+    if (WzdChars.isEmpty(chars)) {
+      return path;
+    }
+    var dotIndex = path.lastIndexOf(".");
+    if (dotIndex > -1) {
+      return path.substring(0, dotIndex) + chars + path.substring(dotIndex);
+    } else {
+      return path + chars;
+    }
+  }
+
+  public static File addOnBaseName(File file, String chars) {
+    return new File(addOnBaseName(file.getAbsolutePath(), chars));
   }
 
   public static File notOverride(File path) {
+    if (path == null) {
+      return path;
+    }
     if (!path.exists()) {
       return path;
-    } else {
-      File result = null;
-      int tent = 2;
-      do {
-        result = new File(putOnBaseName(path.getAbsolutePath(), " (" + tent + ")"));
-        tent++;
-      } while (result.exists());
-      return result;
     }
+    File result = null;
+    int attempt = 2;
+    do {
+      result = new File(addOnBaseName(path.getAbsolutePath(), " (" + attempt + ")"));
+      attempt++;
+    } while (result.exists());
+    return result;
   }
 
   public static JFileChooser chooser(String description, String... extensions) {

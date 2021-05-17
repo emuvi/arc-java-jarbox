@@ -9,6 +9,14 @@ import java.util.concurrent.Future;
 
 public class WzdBin {
 
+  public static void sleep(long millis) {
+    try {
+      Thread.sleep(millis);
+    } catch (Exception e) {
+      WzdLog.treat(e);
+    }
+  }
+
   @SafeVarargs
   public static <T> List<T> wait(Future<T>... futures) throws Exception {
     List<T> result = new ArrayList<>();
