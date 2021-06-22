@@ -1,6 +1,5 @@
 package pin.jarbox.wzd;
 
-import java.util.Base64;
 import pin.jarbox.dat.Nature;
 
 public class WzdData {

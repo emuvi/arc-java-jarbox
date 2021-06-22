@@ -28,7 +28,8 @@ public class WzdChars {
     return sum(withUnion, null, allStrings);
   }
 
-  public static String sum(String withUnion, StringBuilder andBuilder, String... allStrings) {
+  public static String sum(String withUnion, StringBuilder andBuilder,
+      String... allStrings) {
     if (allStrings == null) {
       return null;
     }
@@ -36,7 +37,7 @@ public class WzdChars {
       withUnion = "";
     }
     var atLeastOne = false;
-    var result = andBuilder != null ? andBuilder: new StringBuilder();
+    var result = andBuilder != null ? andBuilder : new StringBuilder();
     for (String chars : allStrings) {
       if (isNotEmpty(chars)) {
         if (atLeastOne) {
@@ -158,6 +159,17 @@ public class WzdChars {
       }
     }
     return false;
+  }
+
+  public static String replaceAll(String source, String[] from, String[] to) {
+    if (from == null || source == null || source.isEmpty()) {
+      return source;
+    }
+    for (int i = 0; i < from.length; i++) {
+      var newValue = to == null || i >= to.length ? "" : to[i];
+      source = source.replace(from[i], newValue);
+    }
+    return source;
   }
 
   public static String replaceControlFlow(String inString) {
