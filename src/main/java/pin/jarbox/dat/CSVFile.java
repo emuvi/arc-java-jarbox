@@ -8,9 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.LinkedList;
 import pin.jarbox.wzd.WzdChars;
 
 public class CSVFile implements Closeable {
@@ -42,32 +40,16 @@ public class CSVFile implements Closeable {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (o == this)
-      return true;
-    if (!(o instanceof CSVFile)) {
-      return false;
-    }
-    CSVFile cSVFile = (CSVFile) o;
-    return Objects.equals(file, cSVFile.file) && Objects.equals(mode, cSVFile.mode);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(file, mode);
-  }
-
-  @Override
   public String toString() {
     return "{" + " file='" + getFile() + "'" + ", mode='" + getMode() + "'" + "}";
   }
 
-  public synchronized List<String> readLine() throws Exception {
+  public synchronized String[] readLine() throws Exception {
     final var line = reader.readLine();
     if (line == null) {
       return null;
     }
-    List<String> result = new ArrayList<>();
+    var result = new LinkedList<>();
     var openQuotes = false;
     var builder = new StringBuilder();
     for (int i = 0; i < line.length(); i++) {
@@ -87,7 +69,7 @@ public class CSVFile implements Closeable {
       } else {
         if (actual == '"') {
           openQuotes = true;
-        } else if (actual == ',') {
+        } else if (actual == ',' || actual == ';') {
           result.add(WzdChars.remakeControlFlow(builder.toString()));
           builder = new StringBuilder();
         } else {
@@ -96,14 +78,14 @@ public class CSVFile implements Closeable {
       }
     }
     result.add(WzdChars.remakeControlFlow(builder.toString()));
-    return result;
+    return result.toArray(new String[result.size()]);
   }
 
   public synchronized void writeLine(String... columns) {
     if (columns != null) {
       for (int i = 0; i < columns.length; i++) {
         var column = WzdChars.replaceControlFlow(columns[i]);
-        if (WzdChars.contains(column, '"', ' ', ',')) {
+        if (WzdChars.contains(column, '"', ' ', ',', ';')) {
           column = '"' + column.replace("\"", "\"\"") + '"';
         }
         if (i > 0) {
