@@ -87,7 +87,7 @@ public class CSVFile implements Closeable {
       } else {
         if (actual == '"') {
           openQuotes = true;
-        } else if (actual == ',') {
+        } else if (actual == ',' || actual == ';') {
           result.add(WzdChars.remakeControlFlow(builder.toString()));
           builder = new StringBuilder();
         } else {
@@ -103,7 +103,7 @@ public class CSVFile implements Closeable {
     if (columns != null) {
       for (int i = 0; i < columns.length; i++) {
         var column = WzdChars.replaceControlFlow(columns[i]);
-        if (WzdChars.contains(column, '"', ' ', ',')) {
+        if (WzdChars.contains(column, '"', ' ', ',', ';')) {
           column = '"' + column.replace("\"", "\"\"") + '"';
         }
         if (i > 0) {

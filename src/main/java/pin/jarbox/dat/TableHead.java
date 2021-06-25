@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import com.google.gson.Gson;
 import pin.jarbox.wzd.WzdChars;
 import pin.jarbox.wzd.WzdData;
 
@@ -13,9 +14,13 @@ public class TableHead {
   public String schema;
   public String name;
 
-  public TableHead() { this(null, null, null); }
+  public TableHead() {
+    this(null, null, null);
+  }
 
-  public TableHead(String catalog) { this(catalog, null, null); }
+  public TableHead(String catalog) {
+    this(catalog, null, null);
+  }
 
   public TableHead(String catalog, String schema) {
     this(catalog, schema, null);
@@ -27,11 +32,16 @@ public class TableHead {
     this.name = name;
   }
 
-  public String getSchemaAndName() { return WzdChars.sum(".", schema, name); }
+  public String getSchemaName() {
+    return WzdChars.sum(".", schema, name);
+  }
+
+  public String getCatalogSchemaName() {
+    return WzdChars.sum(".", catalog, schema, name);
+  }
 
   public String getNameForFile() {
-    return WzdChars.sum(".", catalog, WzdChars.firstNonEmpty(schema, "public"),
-                        name);
+    return WzdChars.sum(".", catalog, schema, name);
   }
 
   public Table getTable(Connection connection) throws Exception {
@@ -60,6 +70,10 @@ public class TableHead {
 
   @Override
   public String toString() {
-    return WzdChars.sum(".", catalog, schema, name);
+    return new Gson().toJson(this);
+  }
+
+  public static Table fromString(String source) {
+    return new Gson().fromJson(source, Table.class);
   }
 }

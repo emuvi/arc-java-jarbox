@@ -1,5 +1,7 @@
 package pin.jarbox.dat;
 
+import com.google.gson.Gson;
+
 public class TableField {
 
   public String name;
@@ -11,13 +13,11 @@ public class TableField {
 
   @Override
   public String toString() {
-    return "{"
-        + " name='" + name + "'"
-        + ", nature='" + nature + "'"
-        + ", size='" + size + "'"
-        + ", precision='" + precision + "'"
-        + ", notNull='" + notNull + "'"
-        + ", key='" + key + "'"
-        + "}";
+    return new Gson().toJson(this);
   }
+
+  public static Table fromString(String source) {
+    return new Gson().fromJson(source, Table.class);
+  }
+  
 }

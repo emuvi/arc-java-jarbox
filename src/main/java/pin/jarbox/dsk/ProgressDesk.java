@@ -5,6 +5,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import pin.jarbox.bin.Progress;
 import pin.jarbox.wzd.WzdDesk;
@@ -17,11 +18,12 @@ public class ProgressDesk extends Progress {
   private volatile boolean stopped = false;
 
   private final JTextArea textArea = new JTextArea(30, 5);
+  private final JScrollPane scrollBar = new JScrollPane(textArea);
   private final JProgressBar barProgress = new JProgressBar();
   private final JButton btnPause = new JButton("Pause");
   private final JButton btnStop = new JButton("Stop");
   private final Panel rowActions = new RowPanel().add(btnPause).add(btnStop).close();
-  private final Panel mainPanel = new ColPanel().addMax(textArea).addCross(barProgress)
+  private final Panel mainPanel = new ColPanel().addMax(scrollBar).addCross(barProgress)
       .add(rowActions);
 
   public ProgressDesk(String title) {
@@ -34,6 +36,8 @@ public class ProgressDesk extends Progress {
     textArea.setOpaque(false);
     textArea.setBackground(new Color(0, 0, 0, 0));
     textArea.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+    btnPause.addActionListener(e -> pause());
+    btnStop.addActionListener(e -> stop());
     helm = new Helm(new JFrame("Progress " + getTitle()), mainPanel);
     helm.pack();
     helm.setSize(450, 210);

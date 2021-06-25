@@ -2,8 +2,6 @@ package pin.jarbox.wzd;
 
 public class WzdChars {
 
-  public static String LINE_SEPARATOR = "\r\n";
-
   public static boolean isEmpty(String theString) {
     return theString == null || theString.isEmpty();
   }

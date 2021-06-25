@@ -6,8 +6,9 @@ import java.io.File;
 import org.junit.jupiter.api.Test;
 
 public class CSVFileTest {
+  
   @Test
-	public void testWriteReadAppendRead() throws Exception {
+  public void testWriteReadAppendRead() throws Exception {
     var testFile = new File("test.csv");
     try (var csvFile = new CSVFile(testFile, FileMode.WRITE)) {
       csvFile.writeLine("Col1", "Col2");
@@ -61,5 +62,6 @@ public class CSVFileTest {
       assertNull(lin7);
     }
     testFile.delete();
-	}
+  }
+  
 }
