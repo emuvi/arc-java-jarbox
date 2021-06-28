@@ -19,20 +19,20 @@ public class CSVFileTest {
     }
     try (var csvFile = new CSVFile(testFile, FileMode.READ)) {
       var lin1 = csvFile.readLine();
-      assertEquals("Col1", lin1.get(0));
-      assertEquals("Col2", lin1.get(1));
+      assertEquals("Col1", lin1[0]);
+      assertEquals("Col2", lin1[1]);
       var lin2 = csvFile.readLine();
-      assertEquals("Col 1", lin2.get(0));
-      assertEquals("Col 2", lin2.get(1));
+      assertEquals("Col 1", lin2[0]);
+      assertEquals("Col 2", lin2[1]);
       var lin3 = csvFile.readLine();
-      assertEquals("Col 1,2", lin3.get(0));
-      assertEquals("Col 2,1", lin3.get(1));
+      assertEquals("Col 1,2", lin3[0]);
+      assertEquals("Col 2,1", lin3[1]);
       var lin4 = csvFile.readLine();
-      assertEquals("Col \"1\"", lin4.get(0));
-      assertEquals("Col 2,3", lin4.get(1));
+      assertEquals("Col \"1\"", lin4[0]);
+      assertEquals("Col 2,3", lin4[1]);
       var lin5 = csvFile.readLine();
-      assertEquals("Col 1\nBreak", lin5.get(0));
-      assertEquals("Col 2\tTab", lin5.get(1));
+      assertEquals("Col 1\nBreak", lin5[0]);
+      assertEquals("Col 2\tTab", lin5[1]);
       var lin6 = csvFile.readLine();
       assertNull(lin6);
     }
@@ -41,23 +41,23 @@ public class CSVFileTest {
     }
     try (var csvFile = new CSVFile(testFile, FileMode.READ)) {
       var lin1 = csvFile.readLine();
-      assertEquals("Col1", lin1.get(0));
-      assertEquals("Col2", lin1.get(1));
+      assertEquals("Col1", lin1[0]);
+      assertEquals("Col2", lin1[1]);
       var lin2 = csvFile.readLine();
-      assertEquals("Col 1", lin2.get(0));
-      assertEquals("Col 2", lin2.get(1));
+      assertEquals("Col 1", lin2[0]);
+      assertEquals("Col 2", lin2[1]);
       var lin3 = csvFile.readLine();
-      assertEquals("Col 1,2", lin3.get(0));
-      assertEquals("Col 2,1", lin3.get(1));
+      assertEquals("Col 1,2", lin3[0]);
+      assertEquals("Col 2,1", lin3[1]);
       var lin4 = csvFile.readLine();
-      assertEquals("Col \"1\"", lin4.get(0));
-      assertEquals("Col 2,3", lin4.get(1));
+      assertEquals("Col \"1\"", lin4[0]);
+      assertEquals("Col 2,3", lin4[1]);
       var lin5 = csvFile.readLine();
-      assertEquals("Col 1\nBreak", lin5.get(0));
-      assertEquals("Col 2\tTab", lin5.get(1));
+      assertEquals("Col 1\nBreak", lin5[0]);
+      assertEquals("Col 2\tTab", lin5[1]);
       var lin6 = csvFile.readLine();
-      assertEquals("New Col 1\nBreak", lin6.get(0));
-      assertEquals("New Col 2\tTab", lin6.get(1));
+      assertEquals("New Col 1\nBreak", lin6[0]);
+      assertEquals("New Col 2\tTab", lin6[1]);
       var lin7 = csvFile.readLine();
       assertNull(lin7);
     }
