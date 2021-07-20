@@ -1,43 +1,43 @@
 package pin.jarbox.wzd;
 
-import pin.jarbox.dat.Nature;
+import pin.jarbox.dat.DataNature;
 
 public class WzdData {
 
-  public static Nature getNatureOfSQL(int jdbcType) {
+  public static DataNature getNatureOfSQL(int jdbcType) {
     switch (jdbcType) {
       case 16:
-        return Nature.Bool;
+        return DataNature.BOOL;
       case -7:
       case -6:
       case 5:
       case 4:
-        return Nature.Int;
+        return DataNature.INT;
       case -5:
-        return Nature.Long;
+        return DataNature.LONG;
       case 6:
       case 7:
-        return Nature.Float;
+        return DataNature.FLOAT;
       case 8:
       case 2:
       case 3:
-        return Nature.Double;
+        return DataNature.DOUBLE;
       case 1:
       case -15:
-        return Nature.Char;
+        return DataNature.CHAR;
       case 12:
       case -1:
       case -9:
       case -16:
-        return Nature.Chars;
+        return DataNature.CHARS;
       case 91:
-        return Nature.Date;
+        return DataNature.DATE;
       case 92:
       case 2013:
-        return Nature.Time;
+        return DataNature.TIME;
       case 93:
       case 2014:
-        return Nature.Timestamp;
+        return DataNature.TIMESTAMP;
       case -2:
       case -3:
       case -4:
@@ -45,9 +45,10 @@ public class WzdData {
       case 2005:
       case 2011:
       case 2009:
-        return Nature.Bytes;
+        return DataNature.BYTES;
       default:
-        return Nature.Undefined;
+        throw new UnsupportedOperationException(
+            "Could not identify the data nature of jdbc type: " + jdbcType);
     }
   }
 

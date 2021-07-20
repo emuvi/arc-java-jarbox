@@ -8,8 +8,6 @@ import pin.jarbox.bin.Console;
 
 public class WzdLog {
 
-  public static final boolean DEBUG = false;
-
   private static List<Consumer<String>> consumers = null;
 
   public static void addConsumer(Consumer<String> consumer)  {
@@ -28,12 +26,23 @@ public class WzdLog {
     }
   }
 
+  public static void debug(String topic, String message, Object... values) {
+    var builder = new StringBuilder("[ DEBUG ] ");
+    builder.append(topic);
+    builder.append(System.lineSeparator());
+    builder.append("[ VALUE ] ");
+    var formatted = values != null ? String.format(message, values) : message;
+    builder.append(getDescription(formatted));
+    System.out.println(builder.toString());
+  }
+
   public static void treat(String message, Object... values) {
-    var formatted = String.format(message, values);
-    System.out.println(formatted);
+    var formatted = values != null ? String.format(message, values) : message;
+    var description = getDescription(formatted);
+    System.out.println(description);
     if (WzdDesk.started) {
       WzdDesk.callOrInvoke(() -> {
-        JOptionPane.showMessageDialog(null, formatted, Console.appTitle,
+        JOptionPane.showMessageDialog(null, description, Console.appTitle,
             JOptionPane.INFORMATION_MESSAGE);
       });
     }
@@ -49,27 +58,36 @@ public class WzdLog {
   }
 
   public static void treat(Exception error, boolean silent) {
-    final var formatted = getDescription(error);
-    System.out.println(formatted);
+    final var description = getDescription(error);
+    System.out.println(description);
     if (!silent && WzdDesk.started) {
       WzdDesk.callOrInvoke(() -> {
-        JOptionPane.showMessageDialog(null, formatted, Console.appTitle,
+        JOptionPane.showMessageDialog(null, description, Console.appTitle,
             JOptionPane.ERROR_MESSAGE);
       });
     }
     if (consumers != null) {
       for (var consumer : consumers) {
-        consumer.accept(formatted);
+        consumer.accept(description);
       }
     }
   }
 
-  public static String getDescription(Exception error) {
-    StringBuilder builder = new StringBuilder();
-    builder.append(error.getMessage());
+  public static String getDescription(String forMessage) {
+    var builder = new StringBuilder();
+    builder.append(forMessage);
     builder.append(System.lineSeparator());
     builder.append("  : ");
-    builder.append(Console.getOrigin(error));
+    builder.append(Console.getOrigin());
+    return builder.toString();
+  }
+
+  public static String getDescription(Exception forError) {
+    var builder = new StringBuilder();
+    builder.append(forError.getMessage());
+    builder.append(System.lineSeparator());
+    builder.append("  : ");
+    builder.append(Console.getOrigin(forError));
     return builder.toString();
   }
 

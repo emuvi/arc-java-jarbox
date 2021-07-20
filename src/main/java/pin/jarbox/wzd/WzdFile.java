@@ -66,20 +66,20 @@ public class WzdFile {
     }
   }
 
-  public static String sum(String path, String... childs) {
+  public static String sum(String path, String... children) {
     String result = path;
-    if (childs != null) {
-      for (String filho : childs) {
+    if (children != null) {
+      for (String filho : children) {
         result = sum(result, filho);
       }
     }
     return result;
   }
 
-  public static File sum(File path, String... childs) {
+  public static File sum(File path, String... children) {
     var result = path;
-    if (result != null && childs != null) {
-      for (String child : childs) {
+    if (result != null && children != null) {
+      for (String child : children) {
         result = new File(result, child);
       }
     }
@@ -317,15 +317,15 @@ public class WzdFile {
     return openMany(null);
   }
 
-  public static File[] openMany(File[] selecteds) {
-    return openMany(selecteds, null);
+  public static File[] openMany(File[] selected) {
+    return openMany(selected, null);
   }
 
   public static File[] openMany(String description, String... extensions) {
     return openMany(null, description, extensions);
   }
 
-  public static File[] openMany(File[] selecteds, String description,
+  public static File[] openMany(File[] selected, String description,
       String... extensions) {
     File[] result = null;
     if (WzdDesk.started) {
@@ -334,8 +334,8 @@ public class WzdFile {
       chooser.setMultiSelectionEnabled(true);
       chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
       chooser.setAcceptAllFileFilterUsed(extensions == null);
-      if (selecteds != null) {
-        chooser.setSelectedFiles(selecteds);
+      if (selected != null) {
+        chooser.setSelectedFiles(selected);
       }
       if (description != null & extensions != null) {
         FileFilter filter = new FileNameExtensionFilter(description, extensions);
@@ -346,7 +346,7 @@ public class WzdFile {
       }
     } else {
       result = selectFileTerminalMany(true, FileTerminalAction.OPEN,
-          FileTerminalNature.FILE_OR_DIR, selecteds, description, extensions);
+          FileTerminalNature.FILE_OR_DIR, selected, description, extensions);
     }
     return result;
   }
@@ -355,15 +355,15 @@ public class WzdFile {
     return openFileMany(null);
   }
 
-  public static File[] openFileMany(File[] selecteds) {
-    return openFileMany(selecteds, null);
+  public static File[] openFileMany(File[] selected) {
+    return openFileMany(selected, null);
   }
 
   public static File[] openFileMany(String description, String... extensions) {
     return openFileMany(null, description, extensions);
   }
 
-  public static File[] openFileMany(File[] selecteds, String description,
+  public static File[] openFileMany(File[] selected, String description,
       String... extensions) {
     File[] result = null;
     if (WzdDesk.started) {
@@ -372,8 +372,8 @@ public class WzdFile {
       chooser.setMultiSelectionEnabled(true);
       chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
       chooser.setAcceptAllFileFilterUsed(extensions == null);
-      if (selecteds != null) {
-        chooser.setSelectedFiles(selecteds);
+      if (selected != null) {
+        chooser.setSelectedFiles(selected);
       }
       if (description != null & extensions != null) {
         FileFilter filter = new FileNameExtensionFilter(description, extensions);
@@ -384,7 +384,7 @@ public class WzdFile {
       }
     } else {
       result = selectFileTerminalMany(true, FileTerminalAction.OPEN,
-          FileTerminalNature.FILE, selecteds, description, extensions);
+          FileTerminalNature.FILE, selected, description, extensions);
     }
     return result;
   }
@@ -393,15 +393,15 @@ public class WzdFile {
     return openDirMany(null);
   }
 
-  public static File[] openDirMany(File[] selecteds) {
-    return openDirMany(selecteds, null);
+  public static File[] openDirMany(File[] selected) {
+    return openDirMany(selected, null);
   }
 
   public static File[] openDirMany(String description, String... extensions) {
     return openDirMany(null, description, extensions);
   }
 
-  public static File[] openDirMany(File[] selecteds, String description,
+  public static File[] openDirMany(File[] selected, String description,
       String... extensions) {
     File[] result = null;
     if (WzdDesk.started) {
@@ -410,8 +410,8 @@ public class WzdFile {
       chooser.setMultiSelectionEnabled(true);
       chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
       chooser.setAcceptAllFileFilterUsed(extensions == null);
-      if (selecteds != null) {
-        chooser.setSelectedFiles(selecteds);
+      if (selected != null) {
+        chooser.setSelectedFiles(selected);
       }
       if (description != null & extensions != null) {
         FileFilter filter = new FileNameExtensionFilter(description, extensions);
@@ -422,7 +422,7 @@ public class WzdFile {
       }
     } else {
       result = selectFileTerminalMany(true, FileTerminalAction.OPEN,
-          FileTerminalNature.DIR, selecteds, description, extensions);
+          FileTerminalNature.DIR, selected, description, extensions);
     }
     return result;
   }
@@ -577,34 +577,10 @@ public class WzdFile {
   }
 
   private static File[] selectFileTerminalMany(boolean askForMany,
-      FileTerminalAction action, FileTerminalNature nature, File[] selecteds,
+      FileTerminalAction action, FileTerminalNature nature, File[] selected,
       String description, String... extensions) {
     throw new UnsupportedOperationException(
-        "Select file(s) from terminal is not yet implemmented.");
-  }
-
-  public static String encodeToBase64(byte[] bytes) {
-    return Base64.getEncoder().encodeToString(bytes);
-  }
-
-  public static String encodeToHex(byte[] bytes) {
-    StringBuilder hexString = new StringBuilder(2 * bytes.length);
-    for (int i = 0; i < bytes.length; i++) {
-      String hex = Integer.toHexString(0xff & bytes[i]);
-      if (hex.length() == 1) {
-        hexString.append('0');
-      }
-      hexString.append(hex);
-    }
-    return hexString.toString();
-  }
-
-  public static String checkSHA256(File file) throws Exception {
-    return checkSHA256(Files.readAllBytes(file.toPath()));
-  }
-
-  public static String checkSHA256(byte[] bytes) throws Exception {
-    return encodeToHex(MessageDigest.getInstance("SHA-256").digest(bytes));
+        "Select file(s) from terminal is not yet implemented."); // TODO
   }
 
 }

@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import pin.jarbox.bin.Console;
-import pin.jarbox.wzd.WzdBin;
+import pin.jarbox.wzd.WzdLang;
 import pin.jarbox.wzd.WzdDesk;
 
 public class HelmLogged {
@@ -45,7 +45,7 @@ public class HelmLogged {
   public void show() {
     window.setVisible(true);
     text.setText(Console.instance.getLogged());
-    WzdBin.delay(500, () -> {
+    WzdLang.delay(500, () -> {
       SwingUtilities.invokeLater(() -> {
         scroll.getVerticalScrollBar().setValue(scroll.getVerticalScrollBar()
             .getMaximum());

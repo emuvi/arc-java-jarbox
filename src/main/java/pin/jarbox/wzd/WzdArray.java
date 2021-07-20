@@ -1,5 +1,6 @@
 package pin.jarbox.wzd;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,6 +70,13 @@ public class WzdArray {
     for (int i = 0; i < list.size(); i++) {
       result[i] = list.get(i);
     }
+    return result;
+  }
+
+  @SuppressWarnings("all")
+  public static <T> T[] make(Class<T> clazz, T value, int size) {
+    T[] result = (T[]) Array.newInstance(clazz, size);
+    Arrays.fill(result, value);
     return result;
   }
 

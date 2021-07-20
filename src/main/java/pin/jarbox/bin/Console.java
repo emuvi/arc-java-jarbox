@@ -36,7 +36,7 @@ public class Console extends PrintStream {
     }
     instance.putOnSystem();
     System.out.println("Console of " + appTitle + " (" + appVersion + ") started in "
-        + WzdDate.MOMMENT_FORMAT.format(new Date(startedIn)));
+        + WzdDate.MOMENT_FORMAT.format(new Date(startedIn)));
   }
 
   public static String[] getArguments() {

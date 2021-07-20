@@ -120,6 +120,45 @@ public class WzdChars {
     }
   }
 
+  public static String getLetters(String ofString) {
+    if (ofString == null) {
+      return null;
+    }
+    var builder = new StringBuilder();
+    for (char ch : ofString.toCharArray()) {
+      if (Character.isLetter(ch)) {
+        builder.append(ch);
+      }
+    }
+    return builder.toString();
+  }
+
+  public static String getNonLetters(String ofString) {
+    if (ofString == null) {
+      return null;
+    }
+    var builder = new StringBuilder();
+    for (char ch : ofString.toCharArray()) {
+      if (!Character.isLetter(ch)) {
+        builder.append(ch);
+      }
+    }
+    return builder.toString();
+  }
+
+  public static String getNonLettersAndNonDigits(String ofString) {
+    if (ofString == null) {
+      return null;
+    }
+    var builder = new StringBuilder();
+    for (char ch : ofString.toCharArray()) {
+      if (!Character.isLetter(ch) && !Character.isDigit(ch)) {
+        builder.append(ch);
+      }
+    }
+    return builder.toString();
+  }
+
   public static String fill(char withChar, int untilLength) {
     return fill(null, withChar, untilLength, true);
   }
