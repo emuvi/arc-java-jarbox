@@ -1,8 +1,6 @@
 package pin.jarbox.dat;
 
 import java.util.List;
-import com.google.gson.Gson;
-import pin.jarbox.wzd.WzdChars;
 
 public class Table {
 
@@ -34,15 +32,6 @@ public class Table {
 
   public String getCatalogSchemaName() {
     return head.getCatalogSchemaName();
-  }
-
-  @Override
-  public String toString() {
-    return new Gson().toJson(this);
-  }
-
-  public static Table fromString(String source) {
-    return new Gson().fromJson(source, Table.class);
   }
 
 }

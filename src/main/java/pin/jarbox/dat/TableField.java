@@ -1,6 +1,5 @@
 package pin.jarbox.dat;
 
-import com.google.gson.Gson;
 import pin.jarbox.wzd.WzdBytes;
 import pin.jarbox.wzd.WzdDate;
 
@@ -175,15 +174,6 @@ public class TableField {
       builder.append(" NOT NULL");
     }
     return builder.toString();
-  }
-
-  @Override
-  public String toString() {
-    return new Gson().toJson(this);
-  }
-
-  public static Table fromString(String source) {
-    return new Gson().fromJson(source, Table.class);
   }
 
 }
